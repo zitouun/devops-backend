@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+    tools {
+        jdk   'JAVA_HOME'
+        maven 'M2_HOME'
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/zitouun/devops-backend.git'
+            }
+        }
+        stage('Compile') {
+            steps {
+                dir('backend') {
+                    sh 'mvn -B clean compile'
+                }
+            }
+        }
+    }
+}
